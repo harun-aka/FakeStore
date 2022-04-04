@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Services.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -12,8 +13,15 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class FASSProductDal : IProductDal
+    public class FSASProductDal : IProductDal
     {
+        IDbService _dbService;
+
+        public FSASProductDal(IDbService dbService)
+        {
+            _dbService = dbService;
+        }
+
         public void Add(Product entity)
         {
             throw new NotImplementedException();
@@ -31,7 +39,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            return _dbService.GetProducts();
         }
 
         public void Update(Product entity)

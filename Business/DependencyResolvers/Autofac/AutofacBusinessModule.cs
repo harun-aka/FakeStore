@@ -3,15 +3,11 @@ using Autofac.Extras.DynamicProxy;
 using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
+using Core.Services.Abstract;
 using Core.Utilities.Interceptors;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ExternalService.Concrete;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -20,11 +16,12 @@ namespace Business.DependencyResolvers.Autofac
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();  
-            builder.RegisterType<FASSProductDal>().As<IProductDal>().SingleInstance();
+            builder.RegisterType<FSASProductDal>().As<IProductDal>().SingleInstance();
 
             builder.RegisterType<UserManager>().As<IUserService>();
-            builder.RegisterType<FASSUserDal>().As<IUserDal>();
+            builder.RegisterType<FSASUserDal>().As<IUserDal>();
 
+            builder.RegisterType<FakeStoreApiServerAdapter>().As<IDbService>();
             builder.RegisterType<AuthManager>().As<IAuthService>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();               

@@ -21,18 +21,18 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            //var result = _productService.GetAll();
-            //if (result.Success)
-            //{
-            //    return Ok(result);
-            //}
-            //return BadRequest(result);
-            return Ok(new SuccessDataResult<List<Product>>(new List<Product>
+            var result = _productService.GetAll();
+            if (result.Success)
             {
-                new Product { Id = 1, Category = "1", Description = "1", Image = "1", Price = 30, Title = "1"},
-                new Product { Id = 2, Category = "2", Description = "2", Image = "2", Price = 30, Title = "2"},
-                new Product { Id = 3, Category = "3", Description = "3", Image = "3", Price = 30, Title = "3"}
-            }));
+                return Ok(result);
+            }
+            return BadRequest(result);
+            //return Ok(new SuccessDataResult<List<Product>>(new List<Product>
+            //{
+            //    new Product { Id = 1, Category = "1", Description = "1", Image = "1", Price = 30, Title = "1"},
+            //    new Product { Id = 2, Category = "2", Description = "2", Image = "2", Price = 30, Title = "2"},
+            //    new Product { Id = 3, Category = "3", Description = "3", Image = "3", Price = 30, Title = "3"}
+            //}));
         }
 
 
