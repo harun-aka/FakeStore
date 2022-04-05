@@ -22,29 +22,10 @@ namespace DataAccess.Concrete.EntityFramework
             _dbService = dbService;
         }
 
-        public void Add(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Product entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Product Get(Expression<Func<Product, bool>> filter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Product> GetAll(Expression<Func<Product, bool>> filter = null)
+        public List<Product> GetAll()
         {
             return _dbService.GetProducts();
         }
 
-        public void Update(Product entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
