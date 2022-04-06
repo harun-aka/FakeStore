@@ -7,6 +7,7 @@ using System.Net.Http;
 using System;
 using System.Text;
 using RestSharp;
+using System.IO;
 
 namespace FakeStoreApiService
 {
@@ -14,12 +15,17 @@ namespace FakeStoreApiService
     {
         public string Login(UserForLoginDto userForLoginDto)
         {
-            var url = "https://fakestoreapi.com";
+            var endpointJson = File.ReadAllText("../WebAPI/endpoints.json");
+            var endpoint = JsonConvert.DeserializeObject<Endpoint>(endpointJson);
+            if (endpoint == null)
+            {
+                return string.Empty;
+            }
 
-            var json = JsonConvert.SerializeObject(new UserForLoginDto { Username = "mor_2314", Password = "83r5^_" });
+            //var json = JsonConvert.SerializeObject(new UserForLoginDto { Username = "mor_2314", Password = "83r5^_" });
 
-            var restClient = new RestClient(url);
-            var request = new RestRequest("/auth/login", Method.Post);
+            var restClient = new RestClient(endpoint.Url);
+            var request = new RestRequest(endpoint.LoginEndpoint, Method.Post);
             request.AddHeader("Content-Type", "application/json");
 
 
@@ -33,16 +39,25 @@ namespace FakeStoreApiService
                 rawResponse = response.Result.Content;
             }
 
-            var pageResponse = JsonConvert.DeserializeObject<string>(rawResponse);
-            return pageResponse;
+            var pageResponse = JsonConvert.DeserializeObject<LoginResponse>(rawResponse);
+            if(pageResponse == null)
+            {
+                return string.Empty;
+            }
+            return pageResponse.Token;
         }
 
         public List<Product> GetProducts()
         {
-            var url = "https://fakestoreapi.com";
+            var endpointJson = File.ReadAllText("../WebAPI/endpoints.json");
+            var endpoint = JsonConvert.DeserializeObject<Endpoint>(endpointJson);
+            if (endpoint == null)
+            {
+                return new List<Product>();
+            }
 
-            var restClient = new RestClient(url);
-            var request = new RestRequest("/products", Method.Get);
+            var restClient = new RestClient(endpoint.Url);
+            var request = new RestRequest(endpoint.ProductsEndpoint, Method.Get);
             request.AddHeader("Content-Type", "application/json");
 
             var response = restClient.ExecuteAsync(request);
@@ -54,6 +69,10 @@ namespace FakeStoreApiService
             }
 
             var pageResponse = JsonConvert.DeserializeObject<List<Product>>(rawResponse);
+            if(pageResponse == null)
+            {
+                return new List<Product>();
+            }
 
             return pageResponse;
         }

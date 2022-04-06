@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.DTOs;
@@ -16,7 +17,7 @@ namespace Business.Concrete
 
         public IDataResult<string> Login(UserForLoginDto userForLoginDto)
         {
-            return new SuccessDataResult<string>(_userDal.Login(userForLoginDto));
+            return new SuccessDataResult<string>(_userDal.Login(userForLoginDto), Messages.AccessTokenCreated);
         }
     }
 }

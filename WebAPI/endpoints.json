@@ -1,0 +1,8 @@
+{
+  
+    "Name": "fakestoreapibaseurl",
+    "Url": "https://fakestoreapi.com",
+    "LoginEndpoint": "/auth/login",
+    "ProductsEndpoint": "/products"
+  
+}

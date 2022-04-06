@@ -5,6 +5,7 @@ using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Services.Abstract;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using ExternalService.Concrete;
@@ -23,6 +24,7 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<FakeStoreApiServerAdapter>().As<IDbService>();
             builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<CustomTokenHelper>().As<ITokenHelper>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();               
                                                                                            
