@@ -17,7 +17,12 @@ namespace Business.Concrete
 
         public IDataResult<string> Login(UserForLoginDto userForLoginDto)
         {
-            return new SuccessDataResult<string>(_userDal.Login(userForLoginDto), Messages.AccessTokenCreated);
+            string token = _userDal.Login(userForLoginDto);
+            if(string.IsNullOrEmpty(token))
+            {
+                return new ErrorDataResult<string>(token, Messages.AccessTokenCreated);
+            }           
+            return new SuccessDataResult<string>(token, Messages.AccessTokenCreated);
         }
     }
 }

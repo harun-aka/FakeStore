@@ -29,8 +29,13 @@ namespace Business.Concrete
         }
 
         public IDataResult<string> Login(UserForLoginDto userForLoginDto)
-        {           
-            return new SuccessDataResult<string>(_userService.Login(userForLoginDto).Data, Messages.SuccessfulLogin);
+        {
+            var result = _userService.Login(userForLoginDto);
+            if(result.Success)
+            {
+                return new SuccessDataResult<string>(_userService.Login(userForLoginDto).Data, Messages.SuccessfulLogin);
+            }
+            return new ErrorDataResult<string>(_userService.Login(userForLoginDto).Data, Messages.LoginFailed);
         }
 
     }
