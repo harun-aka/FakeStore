@@ -7,9 +7,21 @@ using Core.Utilities.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      builder =>
+                      {
+                          builder.WithOrigins("https://fakestoreapiha.herokuapp.com");
+                      });
+});
+
 
 builder.Services.AddCors();
 
@@ -38,7 +50,7 @@ if (app.Environment.IsDevelopment())
 
 //app.ConfigureCustomExceptionMiddleware();
 
-app.UseCors(corsBuilder => corsBuilder.WithOrigins("https://fakestoreapiha.herokuapp.com").AllowAnyHeader());
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseHttpsRedirection();
 
