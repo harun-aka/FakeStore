@@ -38,7 +38,7 @@ if (app.Environment.IsDevelopment())
 
 //app.ConfigureCustomExceptionMiddleware();
 
-app.UseCors(corsBuilder => corsBuilder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+app.UseCors(corsBuilder => corsBuilder.WithOrigins("https://fakestoreapiha.herokuapp.com").AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
