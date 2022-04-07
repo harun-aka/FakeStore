@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       builder =>
                       {
-                          builder.WithOrigins("https://fakestoreapiha.herokuapp.com");
+                          builder.AllowAnyOrigin();
                       });
 });
 
