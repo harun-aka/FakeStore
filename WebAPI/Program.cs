@@ -13,16 +13,6 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 builder.Services.AddControllers();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: MyAllowSpecificOrigins,
-                      builder =>
-                      {
-                          builder.AllowAnyOrigin();
-                      });
-});
-
-
 builder.Services.AddCors();
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -50,7 +40,7 @@ if (app.Environment.IsDevelopment())
 
 //app.ConfigureCustomExceptionMiddleware();
 
-app.UseCors(MyAllowSpecificOrigins);
+app.UseCors(corsBuilder => corsBuilder.WithOrigins("https://fakestoreapiha.herokuapp.com").AllowAnyHeader());
 
 app.UseHttpsRedirection();
 
