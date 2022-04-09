@@ -15,14 +15,12 @@ namespace FakeStoreApiService
     {
         public string Login(UserForLoginDto userForLoginDto)
         {
-            var endpointJson = File.ReadAllText("../WebAPI/endpoints.json");
+            var endpointJson = File.ReadAllText("endpoints.json");
             var endpoint = JsonConvert.DeserializeObject<Endpoint>(endpointJson);
             if (endpoint == null)
             {
                 return string.Empty;
             }
-
-            //var json = JsonConvert.SerializeObject(new UserForLoginDto { Username = "mor_2314", Password = "83r5^_" });
 
             var restClient = new RestClient(endpoint.Url);
             var request = new RestRequest(endpoint.LoginEndpoint, Method.Post);
@@ -49,7 +47,7 @@ namespace FakeStoreApiService
 
         public List<Product> GetProducts()
         {
-            var endpointJson = File.ReadAllText("../WebAPI/endpoints.json");
+            var endpointJson = File.ReadAllText("endpoints.json");
             var endpoint = JsonConvert.DeserializeObject<Endpoint>(endpointJson);
             if (endpoint == null)
             {
